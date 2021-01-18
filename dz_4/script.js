@@ -118,7 +118,6 @@ function getMonth(value) {
   switch (typeof value) {
     case "string":
       return month.includes(value)?
-        
         months.indexOf(value) + 1:
         "Not found";
     case "number":
