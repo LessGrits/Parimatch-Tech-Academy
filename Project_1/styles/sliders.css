@@ -1,8 +1,18 @@
-
-
-/*.categories .slick-track {*/
+/*.recommended .slick-track {*/
 /*    display: flex;*/
-/*    text-align: center;*/
-/*    width: 100%;*/
+/*    min-width: 800px;*/
+/*    width: auto;*/
+/*    max-width: 1080px;*/
+/*    justify-content: center;*/
+/*    overflow: hidden;*/
 /*}*/
 
+/*.recommended .slick-list {*/
+/*    margin: 0 auto;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.recommended .slick-slide {*/
+/*    min-width: 240px*/
+/*}*/

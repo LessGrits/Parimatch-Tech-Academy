@@ -220,6 +220,16 @@ const ITEMS = [
     },
     {
         type: 'new',
+        description: ' C530A IP',
+        img: 'images/news1.png',
+        price: '1000',
+        oldPrice: '1100',
+        currency: 'UAH',
+        date: '4000/01/01',
+        url: 'new_items/item1.html'
+    },
+    {
+        type: 'new',
         description: ' new IP телефон Siemens Gigaset C530A IP',
         img: 'images/news1.png',
         price: '1000',
@@ -252,7 +262,7 @@ const ITEMS = [
         type: 'recommended',
         description: 'IP C530A IP',
         img: 'images/news1.png',
-        price: '300',
+        price: '100',
         oldPrice: '1100',
         currency: 'RUB',
         date: '2020/12/25',
@@ -262,7 +272,7 @@ const ITEMS = [
         type: 'recommended',
         description: 'recommend C530A IP',
         img: 'images/news1.png',
-        price: '300',
+        price: '400',
         oldPrice: '1100',
         currency: 'RUB',
         date: '2020/12/25',
@@ -272,7 +282,7 @@ const ITEMS = [
         type: 'recommended',
         description: 'recommend!!! C530A IP',
         img: 'images/news1.png',
-        price: '300',
+        price: '3000',
         oldPrice: '1100',
         currency: 'RUB',
         date: '2020/12/25',
@@ -283,7 +293,7 @@ const ITEMS = [
         type: 'recommended',
         description: 'NOKIA',
         img: 'images/news1.png',
-        price: '300',
+        price: '350',
         oldPrice: '1100',
         currency: 'RUB',
         date: '2020/12/25',
@@ -293,8 +303,38 @@ const ITEMS = [
         type: 'sale',
         description: 'IP телефон Siemens Gigaset C530A IP',
         img: 'images/news1.png',
+        price: '100',
+        oldPrice: '1000',
+        currency: 'USD',
+        date: '2021/01/13',
+        url: 'https://same_url/item.html'
+    },
+    {
+        type: 'sale',
+        description: 'IP C530A IP',
+        img: 'images/news1.png',
         price: '150',
         oldPrice: '200',
+        currency: 'UAH',
+        date: '2021/01/13',
+        url: 'https://same_url/item.html'
+    },
+    {
+        type: 'sale',
+        description: 'телефон Siemens',
+        img: 'images/news1.png',
+        price: '250',
+        oldPrice: '2000',
+        currency: 'USD',
+        date: '2021/01/13',
+        url: 'https://same_url/item.html'
+    },
+    {
+        type: 'sale',
+        description: 'телефон Siemens',
+        img: 'images/news1.png',
+        price: '2500',
+        oldPrice: '10000',
         currency: 'USD',
         date: '2021/01/13',
         url: 'https://same_url/item.html'
@@ -306,14 +346,26 @@ const PROMOTIONS = [
     {
         title: 'Название акции',
         description: 'IP телефон Siemens Gigaset C530A IP',
-        img: 'https://same_url.jpg',
+        img: 'images/offer1.png',
         url: 'https://same_url/item.html',
         time_action: '1d 2h 20m'
     },
     {
         title: 'Название акции 2',
         description: 'IP телефон Siemens Gigaset C530A IP',
-        img: 'https://same_url.jpg',
+        img: 'images/offer1.png',
+        url: 'https://same_url/item.html',
+    },
+    {
+        title: 'Название акции 3',
+        description: 'IP  Gigaset C530A IP',
+        img: 'images/offer1.png',
+        url: 'https://same_url/item.html',
+    },
+    {
+        title: 'Название акции 15',
+        description: 'IP  Gigaset C530A IP',
+        img: 'images/offer1.png',
         url: 'https://same_url/item.html',
     }
 ];
@@ -321,12 +373,22 @@ const PROMOTIONS = [
 const BUYING_RIGHT_NOW = [
     {
         title: 'Название товара',
-        img: 'https://same_url.jpg',
+        img: 'images/samsung-shs-2320.png',
         url: 'https://same_url/item.html',
     },
     {
         title: 'Название товара 2',
-        img: 'https://same_url.jpg',
+        img: 'images/samsung-shs-2320.png',
+        url: 'https://same_url/item.html',
+    },
+    {
+        title: 'Название товара 3',
+        img: 'images/samsung-shs-2320.png',
+        url: 'https://same_url/item.html',
+    },
+    {
+        title: 'Название товара 4',
+        img: 'images/samsung-shs-2320.png',
         url: 'https://same_url/item.html',
     },
 ]

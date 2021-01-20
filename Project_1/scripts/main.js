@@ -1,21 +1,11 @@
 const TOP_MENU_ELEMENT = document.querySelector('.menu-items');
 const CATEGORIES_MENU_ELEMENT = document.querySelector('.categories');
 const MAX_TOP_MENU_ELEMENTS = 9;
+const BASKET_ELEMENT = document.querySelector('.basket__info')
 const NEWS_ELEMENT = document.querySelector('.news-list');
+const PROMOTION_ELEMENT = document.querySelector('.promotion');
+const BUYING_RIGHT_NOW_ELEMENT = document.querySelector('.right-now_slider');
 
-const MONTHS_ARRAY = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
-const CURRENCY_ARRAY = {
-    'RUB':'р.',
-    'UAH':'грн.',
-    'USD':'&#36;'
-}
-const itemsTypeSort = {
-    new:(list) => getNewestDate(list, list.length),
-    recommended:(list) => getNewestDate(list,  list.length ),
-    sale:(list) => getNewestDate(list, list.length),
-}
-
-const sortByOrder = array => array.sort((a, b) => a.order - b.order);
 
 const makeSubmenuTemplate = (submenu, title) => {
     const SUBMENU_ELEMENT = document.createElement('div');
@@ -53,6 +43,16 @@ const menuRender = (menu, menuElement, maxElements = 10, menuItemClassName = 'me
         }
 
     }
+}
+
+const basketRender = () => {
+    BASKET_ELEMENT.innerHTML = `
+                            <p class="basket__info">
+                                <strong>Корзина</strong>
+                                <br>
+                                ${BASKET_VALUE.num} /${BASKET_VALUE.value} ${BASKET_VALUE.currency}
+                            </p>
+    `
 }
 
 const newsRender = (news, newsElement) => {
@@ -121,72 +121,13 @@ const newsRender = (news, newsElement) => {
     document.querySelector('.news-section').append(ALL_NEWS_ELEMENT);
 }
 
-const getNewestRandomNews = (news, newsElement) => {
-    const NEWEST_NEWS = getNewestDate(news, 3)
-    return shuffle(NEWEST_NEWS);
-}
-
-const getNewestDate = (list, num) => {
-    let secondsDateList = list.map(({date}) => Date.parse(date))
-        .filter(item => !isNaN(item))
-    let iterator = 0;
-    const result = []
-    while (iterator < num) {
-        const maxSeconds = Math.max(...secondsDateList);
-        const maxDateIndex = secondsDateList.indexOf(maxSeconds);
-        secondsDateList[maxDateIndex] = 0;
-
-        result.push(list[maxDateIndex]);
-        iterator++;
-    }
-    return result;
-}
-
-const shuffle = array => {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (0 !== currentIndex) {
-
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
-}
-
-const sortItemsByTypes = items => {
-    let TYPES_ITEMS = {};
-    items.forEach((item) => {
-        if (!TYPES_ITEMS[item.type]) {
-            TYPES_ITEMS[item.type] = [];
-            TYPES_ITEMS[item.type].push(item);
-        } else {
-            TYPES_ITEMS[item.type].push(item);
-        }
-    })
-    return TYPES_ITEMS;
-}
-
-const setSrc = (src) => {
-   let image =  document.createElement('img');
-   image.onerror =  () => {
-       this.src = 'images/news1.png';
-   };
-    image.src = src;
-
-    return image;
-}
-
 const itemsOneSectionRender = (sectionType, sectionItemsList) => {
-    const SECTION_ELEMENT = document.querySelector('.'+sectionType);
+    const SECTION_ELEMENT = document.querySelector('.' + sectionType);
 
-    console.log('BEFORE',sectionItemsList);
+    console.log('BEFORE', sectionItemsList);
     console.log(itemsTypeSort[sectionType])
     const SORTED_ITEMS_LIST = itemsTypeSort[sectionType](sectionItemsList);
-    console.log('AFTER',SORTED_ITEMS_LIST)
+    console.log('AFTER', SORTED_ITEMS_LIST)
 
     const SECTION_TEMPLATE = sectionItemsList
         .map(({
@@ -196,16 +137,15 @@ const itemsOneSectionRender = (sectionType, sectionItemsList) => {
                   price,
                   oldPrice,
                   currency,
-                  date,
                   url
               }) => {
 
             return `
-            <div class="one-good ${type}-label">
+            <div class="one-good  ${type}-label">
                     <div class="one-good__image-wrap">
                     <img src="${img}" alt="${description}">
                     </div>
-                    <a class="one-good__name" href="url">${description}</a>
+                    <a class="one-good__name" href="${url}">${description}</a>
                     <div class="one-good__price-wrap">
                         <p class="one-good__price">Цена: <span>${price} ${CURRENCY_ARRAY[currency]}</span></p>
                         <div class="one-good__discount">${oldPrice}${CURRENCY_ARRAY[currency]}</div>
@@ -218,18 +158,109 @@ const itemsOneSectionRender = (sectionType, sectionItemsList) => {
             `
         })
 
-     SECTION_ELEMENT.innerHTML = SECTION_TEMPLATE.join('')
+    SECTION_ELEMENT.innerHTML = SECTION_TEMPLATE.join('')
 }
 
-const itemsALLSectionSRender = () => {
+const itemsALLSectionsRender = () => {
     for (const sectionType in sortItemsByTypes(ITEMS)) {
-            itemsOneSectionRender(sectionType,sortItemsByTypes(ITEMS)[sectionType] )
+        itemsOneSectionRender(sectionType, sortItemsByTypes(ITEMS)[sectionType])
     }
 }
 
+const promotionRender = () => {
+
+    if (!PROMOTIONS.length) {
+        PROMOTION_ELEMENT.remove();
+        return;
+    }
+    const PROMOTIONS_LIST_TEMPLATE = PROMOTIONS
+        .map(({
+                  title,
+                  description,
+                  img,
+                  url,
+                  time_action
+              }) => {
+
+            if (!!time_action) {
+                const deadlineDate = time_action.match(/\d+/g).map((num) => num.length > 1 ? num : "0" + num);
+            }
+
+            return `
+            <div class="one-offer">
+                    <a class="one-offer__name" href="${url}">${title}</a>
+                    <div class="one-offer__image-wrap">
+                        <img src="${img}" alt="">
+                    </div>
+                    <div class="one-offer__text-wrap">
+                        <p class="one-offer__text">${description} </p>
+                    </div>
+                    <div class="one-offer-time">
+                        <span class="one-offer__text">
+                        Срок действия
+                        </span>
+                        <div class="deadline">
+                            <div class="deadline__time-measure">
+                                <div class="deadline__numbers">
+                                    <span class="deadline__number">1</span>
+                                    <span class="deadline__number">0</span>
+                                </div>
+                                <p class="deadline__measure-title">
+                                    дней
+                                </p>
+                            </div>
+                            <div class="deadline__time-measure">
+                                <div class="deadline__numbers">
+                                    <span class="deadline__number">0</span>
+                                    <span class="deadline__number">7</span>
+                                </div>
+                                <p class="deadline__measure-title">
+                                    часов
+                                </p>
+                            </div>
+                            <div class="deadline__time-measure">
+                                <div class="deadline__numbers">
+                                    <span class="deadline__number">5</span>
+                                    <span class="deadline__number">9</span>
+                                </div>
+                                <p class="deadline__measure-title">
+                                    минут
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="one-offer__about" href="${url}">Подробнее</a>
+                </div>`
+        })
+
+    PROMOTION_ELEMENT.innerHTML = PROMOTIONS_LIST_TEMPLATE.join('')
+}
+
+const buyingRightNowRender = () => {
+    const BUYING_RIGHT_NOW_TEMPLATE = BUYING_RIGHT_NOW
+        .map(({title, img, url}) => {
+            return `
+             <div class="right-now_slider__product">
+                    <a class="right-now_product__img" href="${url}">
+                        <img src="${img}" alt="">
+                    </a>
+                    <a class="right-now-product__link" href="#">
+                       ${title}
+                    </a>
+                </div>
+`
+        })
+
+    BUYING_RIGHT_NOW_ELEMENT.innerHTML = BUYING_RIGHT_NOW_TEMPLATE.join('');
+}
 
 
 menuRender(TOP_MENU, TOP_MENU_ELEMENT, MAX_TOP_MENU_ELEMENTS);
 menuRender(MENU, CATEGORIES_MENU_ELEMENT, 20, 'category');
+basketRender();
 newsRender(NEWS, NEWS_ELEMENT);
-itemsALLSectionSRender()
+itemsALLSectionsRender();
+promotionRender();
+buyingRightNowRender();
+
+

@@ -1,10 +1,8 @@
 
 // $(document).ready(function(){
-//     $('.categories').slick({
-// });
-// });
-
-// $(document).ready(function(){
-//     $('').slick({
+//     $('.recommended').slick( {
+//         slidesToShow: 4,
+//         infinite:true,
+//         slidesToScroll:1,
 //     });
 // });

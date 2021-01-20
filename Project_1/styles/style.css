@@ -602,6 +602,7 @@ body {
 
     .list-goods {
         display: grid;
+        min-width: 0;
         grid-auto-columns: 100%;
         grid-auto-flow: column;
         padding-top: 40px;
@@ -954,7 +955,7 @@ body {
     .right-now_slider {
         overflow: hidden;
         display: grid;
-        grid-template-columns: repeat(3, calc(100% / 3));
+        grid-template-columns: repeat(3, minmax(1fr,calc(100% / 3)));
         grid-auto-flow: column;
         margin: 40px 30px 0;
     }
@@ -1647,7 +1648,7 @@ body {
     }
 
     .right-now_slider {
-        grid-template-columns: repeat(4, calc(100% / 4));
+        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
     }
 
     .brand-block_slider {
