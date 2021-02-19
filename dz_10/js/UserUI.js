@@ -77,7 +77,7 @@ class UserUI {
             return `<div class=${item[className]}>
                         <a target="_blank" href=${item[link]}>${item[value]}</a>
                     </div>`
-        })
+        }).join(' ')
     }
 
 }
